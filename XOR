@@ -19,7 +19,7 @@ if n % 4 == 1, you can exclude the last number which is start + 2 * (n - 1). The
 
 
 
-Not understand parts
+binary #s REPRESENTATION, NOT SO UNDERSTAND
 (last -4, last -2, last)
 
 if n % 4 == 2, you can exclude the last two numbers. The xor of left numbers is 0, so the result is the xor of last two numbers which is 2.
