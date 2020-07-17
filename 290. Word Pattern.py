@@ -21,8 +21,10 @@
 # 
 # Input: pattern = "abba", str = "dog dog dog dog"
 # Output: false
-
-# In[2]:
+##加入字典中时候要区分来自哪一个，可能值一样
+#对应的pattern要在string中
+#如果出现pattern不符合就是false
+#学会了map(string.find, string）的方法
 
 
 def wordPattern(pattern: str, str: str):
