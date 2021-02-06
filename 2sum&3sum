@@ -62,3 +62,38 @@ def threeSum(self, nums: List[int]) -> List[List[int]]:
         
         ##O(n)*O(nlogn) = O(n**2)
      
+
+
+
+
+#using for and if loops to dedupe
+
+def fourSum(self, nums: List[int], target: int) -> List[List[int]]:
+        if len(nums) < 4:
+            return
+      
+        nums.sort()
+        result = set()
+        for i in range(len(nums)-2):
+            if i > 1 and nums[i] == nums[i-1]:
+                i += 1
+            for j in range(i+1, len(nums)-1):
+                if j > i+1 and nums[j] == nums[j-1]:
+                    j += 1
+                low, high = j+1, len(nums)-1
+                t = target- nums[i] - nums[j]
+                while low < high and low < len(nums) and high > j+1:
+                    if nums[low] + nums[high] == t:
+                        result.add((nums[i], nums[j], nums[low], nums[high]))
+                        low += 1
+                        high -= 1
+                        while low < len(nums)-1 and nums[low] == nums[low -1]:
+                            low += 1
+                        while high > low and nums[high] == nums[high+1]:
+                            high -= 1
+                       
+                    elif nums[low] + nums[high] < t:
+                        low += 1
+                    else:
+                        high -= 1
+        return list(map(list, result))
