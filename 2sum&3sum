@@ -1,0 +1,35 @@
+def threeSum(self, nums: List[int]) -> List[List[int]]:
+        self.result = set()
+        nums.sort()
+        if len(nums) < 3:
+            return
+        for i, value in enumerate(nums):
+            
+            if i >= 1 and value == nums[i-1]:
+                continue
+            target = 0-nums[i]
+            new_nums = nums[i+1:]
+            self.twoSum(new_nums, target)
+            
+                
+        return map(list, self.result)
+        
+        
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        if not nums:
+            return
+        hashmap ={}
+        result = []
+        for i in range(len(nums)):
+            if target-nums[i] in hashmap:
+                
+                self.result.add((nums[i], target-nums[i], -target))
+                
+            hashmap[nums[i]] = i
+        
+        
+##时间：o(n *n)
+##去重：sort list first so that increment i if value with index i same as index i-1
+       map list to every element of tuple in set
+        
+     
