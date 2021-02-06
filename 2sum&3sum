@@ -31,5 +31,32 @@ def threeSum(self, nums: List[int]) -> List[List[int]]:
 ##时间：o(n *n)
 ##去重：sort list first so that increment i if value with index i same as index i-1
        map list to every element of tuple in set
+     
+     
+      def threeSum(self, nums: List[int]) -> List[List[int]]:
+        result = set()
+        nums.sort()
+        if len(nums) < 3:
+            return
+        for i in range(len(nums)):
+            if i > 1 and nums[i] == nums[i-1]:
+                continue
+            target  = -nums[i]
+            s, e = i+1, len(nums)-1
+            while s < e and e > i+1 and s < len(nums)-1:
+                
+                if nums[s] + nums[e] < target:
+                    s += 1
+                elif nums[s] + nums[e] > target:
+                     e-= 1
+                elif nums[s] + nums[e] == target:
+                    print(nums[s])
+                    result.add((nums[s], nums[e], nums[i]))
+                    s += 1
+                    e -= 1
+        return map(list, result)
         
+        
+        
+        ##O(n)*O(nlogn) = O(n**2)
      
