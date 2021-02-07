@@ -97,3 +97,59 @@ def fourSum(self, nums: List[int], target: int) -> List[List[int]]:
                     else:
                         high -= 1
         return list(map(list, result))
+
+
+
+
+##using recursion with updated k and updated target & list
+
+##index problem: take care of enumerate list of list
+##sort list before
+
+
+
+def fourSum(self, nums: List[int], target: int) -> List[List[int]]:
+                
+        nums.sort()
+        
+        return self.kSum(nums, target, 4)
+        #return list(map(list, result))
+        
+    
+    def kSum(self, nums, target, k):
+        result = set()
+        
+        if len(nums) == 0 or target < nums[0] * k or nums[-1] * k < target:
+            return []
+        if k == 2:
+            return self.twoSum(nums, target)
+        for i in range(len(nums)):
+
+            if i > 0 and nums[i] == nums[i-1]:
+                continue
+
+                
+                
+            t = target -nums[i]
+            new_nums = nums[i+1:]
+            for _, value in enumerate(self.kSum(new_nums, target-nums[i], k-1)):
+                print(value)
+                result.add(tuple([nums[i]] + value))
+
+        return list(map(list, result))
+                
+
+        
+
+    def twoSum(self, nums, target):
+        if not nums:
+            return
+        p= set()
+        result = []
+        for i in range(len(nums)):
+            if target-nums[i] in p:
+
+                result.append([nums[i], target-nums[i]])
+            p.add(nums[i])
+        return result     
+                    
