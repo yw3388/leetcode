@@ -13,3 +13,29 @@
                 if i == len(strs[j]) or c not in strs[j] or strs[j][i] != c:
                     return strs[0][:i]
         return strs[0]
+
+
+
+
+#divide and conquer
+
+strs = ["flower","flow","flight"]
+
+def common(strs, l, r):
+    ##index divided into halves
+    if l == r:
+        return strs[l]
+    else:
+        mid = (l+r)//2
+        left = common(strs, l, mid)
+        right = common(strs, mid+1, r)
+        return prefix(left, right)
+    
+def prefix(left, right):
+    mins = min(len(left), len(right))
+    for i in range(mins):
+        if left[i] != right[i]:
+            return left[:i]
+    return left[:mins]
+
+common(strs, 0, len(strs)-1)
