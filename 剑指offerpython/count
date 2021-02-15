@@ -1,0 +1,22 @@
+dic[c] = not c in dic
+
+##字典放入(c, True)代表字符数量=1 or (C, False)代表字符数量=0
+
+def firstUniqChar(self, s: str) -> str:
+        dic = collections.OrderedDict()
+        for c in s:
+            dic[c] = not c in dic
+        for k, v in dic.items():
+            if v: return k
+        return ' '
+最后遍历两倍s或者遍历一遍s 遍历一遍字典
+def firstUniqChar(self, s: str) -> str:
+        dic = {}
+        for c in s:
+            dic[c] = not c in dic
+        for c in s:
+            if dic[c]: return c
+        return ' '
+
+
+
