@@ -1,0 +1,62 @@
+https://www.cnblogs.com/deng-tao/p/6536302.html
+
+// [left, right)
+public void quickSort(int[] nums, int left, int right){
+    Random rand = new Random();
+    int pivot = nums[left + rand.nextInt(right-left)];
+    // i: 当前元素
+    // j: 第一个等于pivot的元素
+    // k: 第一个大于pivot的元素
+    int i = left, j = left, k = right;
+    while(i < k){
+        if(nums[i] < pivot) swap(nums, i++, j++);
+        else if(nums[i] > pivot) swap(nums, i, --k);
+        else i++;
+    }
+    quickSort(nums, left, j);
+    quickSort(nums, k, right);
+}
+private void swap(int[] nums, int i, int j){
+    int temp = nums[i];
+    nums[i] = nums[j];
+    nums[j] = temp;
+}
+
+// 调用
+quickSort(nums, 0, nums.length);
+快排的思想还可以用于解决找一个数组中第K大的数、最小的k个数。
+
+三路快排是基数排序（Radix Sort）和快排的结合，最初提出是用来解决字符串数组按字典序排序的问题，假设每个字符串长度相等，则先排第一个字符，中间那一路则是字符相同的则可以排下一字符，左右两路都要继续递归排序。（参考Multi-key quicksort）
+
+输入一个非负整数数组，把数组里所有数字拼接起来排成一个数，打印能拼接出的所有数字中最小的一个。
+
+ 
+class Solution {
+    public String minNumber(int[] nums) {
+        String[] strs = new String[nums.length];
+        for(int i = 0; i < nums.length; i++){
+            strs[i] = String.valueOf(nums[i]);
+        }
+        quickSort(strs, 0, strs.length);
+        return String.join("",strs);
+    }
+    private void quickSort(String[] strs, int left, int right){
+        if(left >= right) return;
+        Random rd = new Random();
+        String pivot = strs[(left + rd.nextInt(right-left))];
+        int i = left, j = right;
+        int k = left;
+        while(k < j){
+            if((strs[k] + pivot).compareTo(pivot + strs[k]) < 0) swap(strs, k++, i++);
+            else if((strs[k] + pivot).compareTo(pivot + strs[k]) > 0) swap(strs, k, --j);
+            else k++;
+        }
+        quickSort(strs, left, i);
+        quickSort(strs, j, right);
+    }
+    private void swap(String[] strs, int i, int j){
+        String temp = strs[i];
+        strs[i] = strs[j];
+        strs[j] = temp;
+    }
+}
