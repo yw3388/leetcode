@@ -37,3 +37,14 @@ def minNumber(self, nums: List[int]) -> str:
             else:
                 return -1
         return ''.join(sorted(nums, key = functools.cmp_to_key(order)))
+        
+        
+        
+  
+  #别人写的定义规律
+ class cmpSmaller(str):
+    def __lt__(self, y):
+        return self + y < y + self  # 字符串拼接比较(两两比较)
+    # 按由小到大来排列
+
+
