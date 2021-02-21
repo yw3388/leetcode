@@ -1,0 +1,72 @@
+请实现一个函数，用来判断一棵二叉树是不是对称的。如果一棵二叉树和它的镜像一样，那么它是对称的。
+
+例如，二叉树 [1,2,2,3,4,4,3] 是对称的。
+
+    1
+   / \
+  2   2
+ / \ / \
+3  4 4  3
+但是下面这个 [1,2,2,null,3,null,3] 则不是镜像对称的:
+
+    1
+   / \
+  2   2
+   \   \
+   3    3
+
+递归：
+一个function pass in两个node比较，从顶层到底层递归，
+确定终止条件
+左边和右边的都要有，值等，递归工作l.left, r.right; l.right, r.left
+
+
+class Solution:
+    def isSymmetric(self, root: TreeNode) -> bool:
+        if not root:
+            return True
+        
+
+       
+        return self.rec(root.left, root.right)
+    def rec(self, l, r):
+        if l and not r: return False
+        if r and not l:return False
+        if not r and not l: return True
+        if r and l:
+            if r.val != l.val: return False
+        return self.rec(l.left, r.right) and self.rec(l.right, r.left)
+        
+        
+        iterative:
+        
+        左左，右右，左右，右左
+           que.push(leftNode->left);   // 加入左节点左孩子
+            que.push(rightNode->right); // 加入右节点右孩子
+            que.push(leftNode->right);  // 加入左节点右孩子
+            que.push(rightNode->left);  // 加入右节点左孩子
+            
+            
+            
+            class Solution:
+    def isSymmetric(self, root: TreeNode) -> bool:
+        if not root:
+            return True
+        
+        queue = [root.left, root.right]
+        while queue:
+            left = queue.pop(0)
+            right = queue.pop(0)
+            if left and not right: return False
+            if right and not left: return False
+            if right and left and right.val != left.val:
+                return False
+            """if not left and not right:
+                return True"""
+            if not left and not right:
+                continue
+            queue.append(left.left)
+            queue.append(right.right)
+            queue.append(left.right)
+            queue.append(right.left)
+        return True
