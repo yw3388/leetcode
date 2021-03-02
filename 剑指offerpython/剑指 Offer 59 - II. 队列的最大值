@@ -1,0 +1,170 @@
+剑指 Offer 59 - II. 队列的最大值
+请定义一个队列并实现函数 max_value 得到队列里的最大值，要求函数max_value、push_back 和 pop_front 的均摊时间复杂度都是O(1)。
+
+若队列为空，pop_front 和 max_value 需要返回 -1
+
+
+
+import collections
+class MaxQueue(object):
+
+    def __init__(self):
+        self.queue = collections.deque()
+
+    def max_value(self):
+        """
+        :rtype: int
+        """
+        return max(self.queue) if self.queue else -1
+
+
+
+    def push_back(self, value):
+        """
+        :type value: int
+        :rtype: None
+        """
+        self.queue.append(value)
+
+    def pop_front(self):
+        """
+        :rtype: int
+        """
+        return self.queue.popleft() if self.queue else -1
+
+
+
+# Your MaxQueue object will be instantiated and called as such:
+# obj = MaxQueue()
+# param_1 = obj.max_value()
+# obj.push_back(value)
+# param_3 = obj.pop_front()
+
+
+
+##用一个deque记住最大值，queue正常入队出队
+具体方法是使用一个双端队列 dequedeque，在每次入队时，如果 dequedeque 队尾元素小于即将入队的元素 valuevalue，则将小于 valuevalue 的元素全部出队后，再将 valuevalue 入队；否则直接入队。
+
+
+
+
+import collections
+
+class MaxQueue(object):
+
+    def __init__(self):
+        self.deque = collections.deque()
+        self.queue = []
+
+    def max_value(self):
+        """
+        :rtype: int
+        """
+        if self.deque:
+            return self.deque[0]
+        else:
+            return -1
+
+
+
+    def push_back(self, value):
+        """
+        :type value: int
+        :rtype: None
+        """
+        while self.deque and self.deque[-1] < value:
+            self.deque.pop()
+        self.deque.append(value)
+        self.queue.append(value)
+
+    def pop_front(self):
+        """
+        :rtype: int
+        """
+        if self.queue:
+            re = self.queue[0]
+            self.queue.pop(0)
+        else:
+            return -1
+        #deque mark the max value
+        if re == self.deque[0]:
+            self.deque.popleft()
+        return re
+
+
+
+
+
+
+###not O(1)
+
+出队 pop_front() ：
+
+若队列 queue 为空，则直接返回 -1−1 ；
+否则，将 queue 首元素出队；
+若 deque 首元素和 queue 首元素 相等 ，则将 deque 首元素出队（以保持两队列 元素一致 ） ；
+
+
+
+import collections
+import queue
+
+class MaxQueue(object):
+
+    def __init__(self):
+        self.deque = collections.deque()
+        self.queue = queue.Queue()
+
+    def max_value(self):
+        """
+        :rtype: int
+        """
+        if self.deque:
+            return self.deque[0]
+        else:
+            return -1
+
+
+
+    def push_back(self, value):
+        """
+        :type value: int
+        :rtype: None
+        """
+        while self.deque and self.deque[-1] < value:
+            self.deque.pop()
+        self.deque.append(value)
+        self.queue.put(value)
+
+
+
+##不能check queue，会超时间，check deque没有就返回-1
+    def pop_front(self):
+        """
+        :rtype: int
+        """
+        if self.queue:
+            re = self.queue.get()
+            
+        else:
+            return -1
+        #deque mark the max value
+        if re == self.deque[0]:
+            self.deque.popleft()
+        return re
+        
+##如果是最大值 ，deque也popleft保持最大值
+def pop_front(self):
+        """
+        :rtype: int
+        """
+        if not self.deque:
+            return -1
+        
+        re = self.queue.get()
+          
+        
+        #deque mark the max value
+        if re == self.deque[0]:
+            self.deque.popleft()
+        return re
