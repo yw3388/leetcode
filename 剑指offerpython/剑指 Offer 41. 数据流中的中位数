@@ -1,0 +1,76 @@
+import collections
+import queue
+class MedianFinder:
+
+
+    def __init__(self):
+        """
+        initialize your data structure here.
+        """
+        self.q = collections.deque()
+        
+
+
+    def addNum(self, num: int) -> None:
+        
+        self.q.append(num)
+
+    def findMedian(self) -> float:
+        self.q = sorted([item for item in self.q if item is not None])
+        length = len(self.q)
+        print(length)
+        if length % 2 != 0:
+            return self.q[length //2]
+        else:
+            return (self.q[length//2] + self.q[length //2-1])/2
+
+
+
+
+
+# Your MedianFinder object will be instantiated and called as such:
+# obj = MedianFinder()
+# obj.addNum(num)
+# param_2 = obj.findMedian()
+
+
+
+import heapq
+class MedianFinder:
+    """
+    大小堆
+    只有小堆，头上是小的 heappop
+    让另一个是大堆，中位数是两个【0】的相减/2
+
+    偶数的话，加到第二个大堆里面，先加入第一个再pop
+    奇数的话，加到第一个小堆里面，先加入第二个
+
+    """
+
+    def __init__(self):
+        """
+        initialize your data structure here.
+        """
+        self.a = []
+        self.b = []
+        
+
+
+    def addNum(self, num: int) -> None:
+        if len(self.a) != len(self.b):
+            heapq.heappush(self.a, num)
+            heapq.heappush(self.b, -heapq.heappop(self.a))
+        else:
+            heapq.heappush(self.b, -num)
+            heapq.heappush(self.a, -heapq.heappop(self.b))
+        
+
+    def findMedian(self) -> float:
+        return self.a[0] if self.a and len(self.a) != len(self.b) else (self.a[0] - self.b[0])/2
+
+
+
+
+
+
+
