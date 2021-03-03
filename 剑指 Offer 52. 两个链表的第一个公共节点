@@ -1,0 +1,18 @@
+class Solution:
+    def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> ListNode:
+        ##相遇问题！总路程是两个list加起来，遍历总会碰到！
+        
+        node = headA
+        node2 = headB
+        while node != node2:
+            if node:
+                node = node.next
+            else:
+                node = headB
+            
+            if node2:
+                node2 = node2.next
+            else:
+                node2 = headA
+        return node
+                
