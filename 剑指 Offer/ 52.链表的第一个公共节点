@@ -16,3 +16,20 @@ class Solution:
                 node2 = headA
         return node
                 
+class Solution:
+    def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> ListNode:
+        
+        m = {}
+        node = headA
+        node2 = headB
+        while node:
+            if node in m:
+                m[node] += 1
+            else:
+                m[node] = 1
+            node = node.next
+        while node2:
+            if node2 in m:
+                return node2
+            node2 = node2.next
+        
