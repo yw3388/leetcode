@@ -1,0 +1,17 @@
+class Solution:
+    def kthLargest(self, root: TreeNode, k: int) -> int:
+        lists = []
+        self.helper(root, lists)
+        return lists[len(lists) - k]
+
+
+    def helper(self, root, lists):
+    #in order
+        if root is None:
+            return
+        if root.left:
+            self.helper(root.left, lists)
+        lists.append(root.val)
+        if root.right:
+            self.helper(root.right, lists)
+        
