@@ -21,3 +21,37 @@ class Solution:
                     
                 
         return rr
+**above time exceeds
+
+
+
+双指针解法
+
+初始值： l=1, r=2， 对应范围是 [l,r]
+
+计算和： 因为连续，所以求和公式其实就是 sum = (l+r)*(r-l+1)/2
+
+考虑如下情况：
+
+sum > target: ++l;
+sum < target: ++r;
+sum ==target: 输出结果 ++l 下一个可能的排列
+
+class Solution:
+    def findContinuousSequence(self, target: int) -> List[List[int]]:
+       
+        rr = []
+        l = 1 
+        r = 2
+        while l < r:
+            sums = (l + r) * ( r - l + 1)/2
+            if sums == target:
+                res = [i for i in range(l, r + 1)]
+                
+                rr.append(res)
+                l += 1
+            elif sums < target:
+                r += 1
+            else:
+                l += 1
+        return rr
