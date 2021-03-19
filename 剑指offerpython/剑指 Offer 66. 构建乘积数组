@@ -1,0 +1,15 @@
+import numpy as np
+class Solution:
+    def constructArr(self, a: List[int]) -> List[int]:
+        l, r = 1, 1
+        left, right = [1] * len(a), [1] * len(a)
+        b = []
+        for i in range(1, len(a)):
+            left[i] = left[i-1] * a[i-1]
+        for i in range(len(a)-2, -1, -1):
+            right[i] = right[i+1] * a[i+1]
+        for i in range(len(a)):
+            #i = 0, left 0, right 0(all right of 1)
+            #i = 1, left 1, right 1(all right of 2)
+            b.append(left[i] * right[i])
+        return b
